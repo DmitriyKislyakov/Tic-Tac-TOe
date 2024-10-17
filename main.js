@@ -1,14 +1,14 @@
-const Gameboard = () => {
-  const gameboard = []
+const Board = () => {
+  const board = []
   for (let i = 1; i <= 9; i++) {
-    gameboard.push({ val: '.', index: i })
+    board.push({ val: '.', index: i })
   }
 
   const drawX = (id) => {
-    gameboard.forEach((cell) => {
+    board.forEach((cell) => {
       if (cell.index == id && cellNotBusy(cell)) {
         cell.val = 'X'
-        console.log(gameboard)
+        console.log(board)
       }
     })
   }
@@ -16,24 +16,24 @@ const Gameboard = () => {
   const cellNotBusy = (cell) => cell.val === '.'
 
   const drawO = (id) => {
-    gameboard.forEach((cell) => {
+    board.forEach((cell) => {
       if (cell.index == id && cellNotBusy(cell)) {
         cell.val = 'O'
-        console.log(gameboard)
+        console.log(board)
       }
     })
   }
 
   const draw = function (mark, id) {
-    gameboard.forEach((cell) => {
+    board.forEach((cell) => {
       if (cell.index == id && cellNotBusy(cell)) {
         cell.val = mark
-        console.log(gameboard)
+        console.log(board)
       }
     })
   }
 
-  return { gameboard, drawO, drawX, draw }
+  return { board, drawO, drawX, draw }
 }
 
 const Player = (name, mark) => {
@@ -41,10 +41,20 @@ const Player = (name, mark) => {
   return { name, mark, sayHi }
 }
 
-const board = Gameboard()
-board.drawX(1)
+const Game = () => {
+  const board = Board()
+  // board.drawX(1)
+  const p1 = Player('p1', 'X')
+  p1.sayHi()
+  const p2 = Player('p2', 'O')
+  p2.sayHi()
 
-const p1 = Player('p1', 'X')
-p1.sayHi()
-const p2 = Player('p2', 'O')
-p2.sayHi()
+  for (let i=1; i<10; i++){
+    if (i%2 == 0)
+      board.draw(p2.mark, i)
+    else
+      board.draw(p1.mark, i)
+  }
+}
+
+const game = Game()
